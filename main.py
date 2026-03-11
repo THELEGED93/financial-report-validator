@@ -1,54 +1,28 @@
 import pandas as pd
-import requests
-from io import BytesIO
 
-# -----------------------------
-# 1. DOWNLOAD ZILLOW DATA
-# -----------------------------
-url = "https://files.zillowstatic.com/research/public_csvs/zhvi/Metro_zhvi_uc_sfrcondo_tier_0.33_0.67_sm_sa_month.csv"
+# File location
+file_path = "data/raw_financials.csv"
 
-print("Downloading Zillow data...")
-response = requests.get(url)
-raw = pd.read_csv(BytesIO(response.content))
+# Load the CSV
+df = pd.read_csv(file_path)
 
-# -----------------------------
-# 2. FILTER FOR FLORIDA METROS
-# -----------------------------
-fl = raw[raw['State'] == 'FL']
+print("\nFinancial Data Loaded:\n")
+print(df)
 
-# -----------------------------
-# 3. TRANSFORM: MELT TIME-SERIES
-# -----------------------------
-value_vars = fl.columns[7:]  # dates start at column 8
+print("\n--- Running Basic Validation ---\n")
 
-fl_melted = fl.melt(
-    id_vars=['RegionID', 'RegionName', 'City', 'State'],
-    value_vars=value_vars,
-    var_name='Date',
-    value_name='HomeValue'
-)
+# Check for negative revenue
+neg_revenue = df[df["revenue"] < 0]
 
-# Convert date column to datetime
-fl_melted['Date'] = pd.to_datetime(fl_melted['Date'])
+# Check for expenses greater than revenue
+bad_expenses = df[df["expenses"] > df["revenue"]]
 
-# -----------------------------
-# 4. ADD FEATURES
-# -----------------------------
-# YoY % Change
-fl_melted['YoY_Change'] = fl_melted.groupby('RegionID')['HomeValue'].pct_change(12) * 100
+if not neg_revenue.empty:
+    print("Rows with negative revenue:")
+    print(neg_revenue)
 
-# 3-Month Rolling Average
-fl_melted['Rolling_3M'] = (
-    fl_melted.groupby('RegionID')['HomeValue']
-    .rolling(3)
-    .mean()
-    .reset_index(level=0, drop=True)
-)
+if not bad_expenses.empty:
+    print("\nRows where expenses exceed revenue:")
+    print(bad_expenses)
 
-# -----------------------------
-# 5. SAVE CLEANED DATA
-# -----------------------------
-output_path = "data_clean/florida_cleaned_data.csv"
-fl_melted.to_csv(output_path, index=False)
-
-print(f"Cleaned Florida housing data saved to {output_path}")
+print("\nValidation complete.")

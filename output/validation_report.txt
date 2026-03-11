@@ -1,0 +1,6 @@
+
+Financial Validation Report
+---------------------------
+
+Negative Revenue Rows: 1
+Expenses Greater Than Revenue Rows: 2

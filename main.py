@@ -1,28 +1,16 @@
-import pandas as pd
+from src.load_data import load_data
+from src.validate_data import validate_data
+from src.transform_data import transform_data
+from src.generate_report import generate_report
 
-# File location
 file_path = "data/raw_financials.csv"
 
-# Load the CSV
-df = pd.read_csv(file_path)
+df = load_data(file_path)
 
-print("\nFinancial Data Loaded:\n")
-print(df)
+validation_results = validate_data(df)
 
-print("\n--- Running Basic Validation ---\n")
+df = transform_data(df)
 
-# Check for negative revenue
-neg_revenue = df[df["revenue"] < 0]
+generate_report(validation_results)
 
-# Check for expenses greater than revenue
-bad_expenses = df[df["expenses"] > df["revenue"]]
-
-if not neg_revenue.empty:
-    print("Rows with negative revenue:")
-    print(neg_revenue)
-
-if not bad_expenses.empty:
-    print("\nRows where expenses exceed revenue:")
-    print(bad_expenses)
-
-print("\nValidation complete.")
+print("Pipeline completed successfully.")

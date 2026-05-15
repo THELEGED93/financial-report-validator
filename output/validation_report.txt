@@ -1,0 +1,6 @@
+
+Financial Validation Report
+---------------------------
+Total Rows: 4
+Negative Revenue Rows: 1
+Expenses > Revenue Rows: 1

@@ -1,4 +1,4 @@
-from turtle import pd
+import pandas as pd
 
 
 def validate_data(df):
@@ -32,5 +32,7 @@ def validate_data(df):
         "negative_revenue_rows": len(negative_revenue),
         "expenses_exceed_revenue_rows": len(expenses_exceed_revenue)
     }
+    
+    print(results)
 
-    return results
+    return df

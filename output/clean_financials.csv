@@ -1,0 +1,6 @@
+company,quarter,revenue,expenses,profit
+AlphaTech,Q1,100000,70000.0,30000.0
+BetaSoft,Q1,85000,90000.0,-5000.0
+CloudCorp,Q1,-5000,20000.0,-25000.0
+DataWorks,Q1,120000,,
+FinEdge,Q1,95000,45000.0,50000.0

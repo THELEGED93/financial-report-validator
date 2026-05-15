@@ -1,5 +1,14 @@
+<<<<<<< HEAD
 date,revenue,expenses
 2026-01-01,-5000,3200
 2026-02-01,6200,4100
 2026-03-01,7100,3900
 2026-04-01,6800,4500
+=======
+company,quarter,revenue,expenses
+AlphaTech,Q1,100000,70000
+BetaSoft,Q1,85000,90000
+CloudCorp,Q1,-5000,20000
+DataWorks,Q1,120000,
+FinEdge,Q1,95000,45000
+>>>>>>> 0f58be5838b9413550c1dba6622da7d2c7f383ea

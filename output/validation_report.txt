@@ -1,6 +1,12 @@
 
 Financial Validation Report
 ---------------------------
+<<<<<<< HEAD
 Total Rows: 4
 Negative Revenue Rows: 1
 Expenses > Revenue Rows: 1
+=======
+
+Negative Revenue Rows: 1
+Expenses Greater Than Revenue Rows: 2
+>>>>>>> 0f58be5838b9413550c1dba6622da7d2c7f383ea
